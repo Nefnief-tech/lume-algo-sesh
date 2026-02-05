@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: lume-algo-service
+  labels:
+    app: lume-algo
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: lume-algo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: lume-algo-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+spec:
+  tls:
+  - hosts:
+    - api.lume.com
+    secretName: lume-algo-tls
+  rules:
+  - host: api.lume.com
+    http:
+      paths:
+      - path: /api/v1/matches
+        pathType: Prefix
+        backend:
+          service:
+            name: lume-algo-service
+            port:
+              number: 8080

@@ -1,0 +1,58 @@
+# Lume Algo Configuration File
+
+[server]
+host = "0.0.0.0"
+port = 8080
+workers = 4
+
+[appwrite]
+endpoint = "https://fra.cloud.appwrite.io/v1"
+api_key = "changeme"
+project_id = "changeme"
+database_id = "threed-dating-db"
+
+[collection]
+user_profiles = "dating-profiles"
+user_preferences = "user-preferences"
+match_events = "matches"
+user_matches = "matches"
+
+[database]
+# PostgreSQL configuration for seen profiles tracking
+url = "${DATABASE_URL:-postgres://lume:password@localhost:5432/lume_algo}"
+max_connections = 10
+min_connections = 1
+acquire_timeout_secs = 5
+idle_timeout_secs = 600
+
+[cache]
+# Redis configuration
+redis_url = "redis://127.0.0.1:6379"
+# Pool size
+pool_size = 10
+# TTL in seconds
+ttl_secs = 300
+# Connection timeout in seconds
+connection_timeout_secs = 5
+
+# L1 in-memory cache (LRU)
+l1_cache_size = 1000
+
+[matching]
+# Maximum distance in km for matching
+max_distance_km = 100
+# Default number of matches to return
+default_limit = 20
+# Maximum number of matches to return
+max_limit = 100
+
+[scoring]
+weights = { distance = 0.35, age = 0.20, sports = 0.25, verified = 0.10, height = 0.10 }
+
+[logging]
+level = "info"
+format = "json"  # or "pretty"
+
+[jwt]
+secret = "${JWT_SECRET}"
+expiration_secs = 86400
