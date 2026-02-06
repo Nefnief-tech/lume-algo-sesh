@@ -88,7 +88,7 @@ impl Matcher {
                 );
 
                 // Only include profiles with a minimum score
-                if score >= 10.0 {
+                if score >= 5.0 {
                     let distance_km = haversine_distance(
                         preferences.latitude,
                         preferences.longitude,
@@ -168,13 +168,13 @@ mod tests {
             gender: gender.to_string(),
             latitude: lat,
             longitude: lon,
-            is_verified,
+            is_verified: Some(is_verified),
             is_active: true,
-            is_timeout: false,
+            is_timeout: Some(false),
             image_file_ids: vec![],
             description: None,
             sports_preferences: vec!["tennis".to_string()],
-            created_at: Utc::now(),
+            created_at: Some(Utc::now()),
         }
     }
 

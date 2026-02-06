@@ -135,13 +135,13 @@ mod tests {
             gender: gender.to_string(),
             latitude: 40.7128,
             longitude: -74.0060,
-            is_verified: true,
+            is_verified: Some(true),
             is_active: true,
-            is_timeout: false,
+            is_timeout: Some(false),
             image_file_ids: vec![],
             description: None,
             sports_preferences: vec!["tennis".to_string(), "swimming".to_string()],
-            created_at: Utc::now(),
+            created_at: Some(Utc::now()),
         }
     }
 
